@@ -85,7 +85,7 @@ test:
 #
 production:
   <<: *default
-   url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['DATABASE_URL'] %>
 #  database: RRA_App_production
 #  username: RRA_App
 #  password: <%= ENV['RRA_APP_DATABASE_PASSWORD'] %>
