@@ -4,6 +4,8 @@ env:
   POSTGRES_PASSWORD: password
   DATABASE_USER: postgres
   DATABASE_PASSWORD: password
+  ADMIN_EMAIL_ONE: ${{secrets.ADMIN_EMAIL_ONE}}
+  ADMIN_EMAIL_TWO: ${{secrets.ADMIN_EMAIL_TWO}}
 
 name: Rails tests
 on: [push, pull_request]
@@ -37,7 +39,12 @@ jobs:
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install
+      - name: Test Secret Env
+        run: echo ${{secrets.TEST_SECRET}}
       - name: Run tests
+        env:
+          ADMIN_EMAIL_ONE: ${{secrets.ADMIN_EMAIL_ONE}}
+          ADMIN_EMAIL_TWO: ${{secrets.ADMIN_EMAIL_TWO}}
         run: bundler exec rspec .
       - name: Run brakeman
         run: brakeman -o brakeman.txt
